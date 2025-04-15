@@ -152,7 +152,7 @@ const PortfolioCompositionPieChart: React.FC = () => {
 export default function PerformancePage() {
   return (
     <div className="container py-8">
-      <h1 className="text-2xl font-bold mb-4">Performance</h1>
+      <h1 className="font-extrabold text-4xl tracking-tighter mb-4">Performance</h1>
       <div className="grid grid-cols-1 gap-8">
         <PerformanceLineChart />
         <AssetAllocationBarChart />
