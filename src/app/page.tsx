@@ -23,6 +23,12 @@ import {
   Users,
   Briefcase,
   Gem,
+  Coins,
+  Activity,
+  Shield,
+  TrendingUp,
+  Banknote,
+  LayoutDashboard,
 } from 'lucide-react';
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from '@/components/ui/dropdown-menu';
@@ -36,8 +42,8 @@ const WalletCard: React.FC<{
   icon: React.FC;
 }> = ({name, balance, ethValue, color, icon: Icon}) => {
   return (
-    <Card className="w-full rounded-xl shadow-md overflow-hidden" style={{backgroundColor: color}}>
-      <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 p-4">
+    <Card className="w-full rounded-xl shadow-md overflow-hidden">
+      <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 p-4" style={{backgroundColor: color}}>
         <CardTitle className="text-sm font-medium text-white">{name}</CardTitle>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -52,7 +58,7 @@ const WalletCard: React.FC<{
           </DropdownMenuContent>
         </DropdownMenu>
       </CardHeader>
-      <CardContent className="p-4">
+      <CardContent className="p-4" style={{backgroundColor: color}}>
         <div className="text-2xl font-bold text-white">{balance}</div>
         <div className="text-sm text-white">{ethValue}</div>
       </CardContent>
@@ -95,7 +101,7 @@ const CryptoItem: React.FC<{
   );
 };
 
-export default function HomePage() {
+export default function WalletDashboard() {
   const [balances, setBalances] = useState<CryptoBalance[]>([]);
   const [riskAssessments, setRiskAssessments] = useState<{[key: string]: {riskScore: number; riskFactors: string}}>({});
 
@@ -129,76 +135,74 @@ export default function HomePage() {
       balance: '$15,22',
       ethValue: '15.22 ETH',
       color: '#6366F1',
-      icon: User,
+      icon: Coins,
     },
     {
-      name: 'Shopping',
+      name: 'Savings',
       balance: '$4,32',
       ethValue: '4.32 ETH',
       color: '#10B981',
-      icon: ShoppingBag,
+      icon: PiggyBank,
     },
     {
-      name: 'Community',
+      name: 'Investment',
       balance: '$0,42',
       ethValue: '0.42 ETH',
       color: '#3B82F6',
-      icon: Users,
+      icon: TrendingUp,
     },
     {
-      name: 'Business',
+      name: 'Trading',
       balance: '$3,34',
       ethValue: '3.34 ETH',
       color: '#F59E0B',
-      icon: Briefcase,
+      icon: Activity,
     },
     {
-      name: 'Investments',
+      name: 'Security',
       balance: '$2,32',
       ethValue: '2.32 ETH',
       color: '#EF4444',
-      icon: Gem,
+      icon: Shield,
     },
   ];
 
   const watchingItems = [
     {
-      name: 'Wallet',
+      name: 'DeFi Wallet',
       symbol: 'ETH',
       amount: '1.39',
       value: '$1,39',
       change: '+3.34%',
       changeType: 'up',
-      icon: 'https://picsum.photos/64/64',
+      icon: 'https://cryptologos.cc/logos/ethereum-eth-logo.png',
     },
     {
-      name: 'Social Wallet',
+      name: 'NFT Collection',
       symbol: 'ETH',
       amount: '0.39',
       value: '$0,39',
       change: '-0.04%',
       changeType: 'down',
-      icon: 'https://picsum.photos/64/64',
+      icon: 'https://cryptologos.cc/logos/ethereum-eth-logo.png',
     },
     {
-      name: 'Savings',
+      name: 'Savings Account',
       symbol: 'ETH',
       amount: '10.22',
       value: '$10,22',
       change: '+1.32%',
       changeType: 'up',
-      icon: 'https://picsum.photos/64/64',
+      icon: 'https://cryptologos.cc/logos/ethereum-eth-logo.png',
     },
   ];
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
-      <header className="px-24 py-12 flex items-center justify-between">
-        <div className="font-extrabold text-7xl tracking-tighter">Wallets</div>
+      <header className="px-4 py-6 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div className="font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter">Wallets</div>
         <div className="flex items-center space-x-4">
           <Button variant="ghost" className="h-8 w-8 p-0 rounded-full">
-            {/* Replace with appropriate icon */}
-            {/* You can replace with a bell icon or message icon */}
             <MoreVertical className="h-5 w-5"/>
           </Button>
           <Avatar className="h-8 w-8">
@@ -207,7 +211,7 @@ export default function HomePage() {
           </Avatar>
         </div>
       </header>
-      <main className="flex-1 overflow-y-auto px-24">
+      <main className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8">
         <section className="mb-8">
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-lg font-semibold tracking-tighter">Your Wallets</h2>
@@ -215,7 +219,7 @@ export default function HomePage() {
               <Plus className="h-5 w-5"/>
             </Button>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {walletCards.map((card, index) => (
               <WalletCard key={index} {...card} />
             ))}
@@ -230,25 +234,27 @@ export default function HomePage() {
             </Button>
           </div>
           <ScrollArea className="rounded-md border">
-            {watchingItems.map((item, index) => (
-              <CryptoItem key={index} {...item} />
-            ))}
+            <div className="p-2">
+              {watchingItems.map((item, index) => (
+                <CryptoItem key={index} {...item} />
+              ))}
+            </div>
           </ScrollArea>
         </section>
       </main>
-      <footer className="sticky bottom-0 bg-secondary p-8 border-t">
+      <footer className="sticky bottom-0 bg-secondary p-4 sm:p-6 border-t">
         <div className="flex justify-around">
           <Button variant="ghost">
-            <Home className="h-6 w-6"/>
+            <LayoutDashboard className="h-6 w-6"/>
           </Button>
           <Button variant="ghost">
-            <CreditCard className="h-6 w-6"/>
+            <Banknote className="h-6 w-6"/>
           </Button>
           <Button variant="ghost">
             <PiggyBank className="h-6 w-6"/>
           </Button>
           <Button variant="ghost">
-            <Building2 className="h-6 w-6"/>
+            <Wallet className="h-6 w-6"/>
           </Button>
           <Button variant="ghost">
             <Settings className="h-6 w-6"/>
