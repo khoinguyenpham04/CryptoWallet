@@ -4,7 +4,7 @@ import {useEffect, useState} from 'react';
 import {getCryptoBalances} from '@/services/crypto';
 import {getCryptoRiskAssessment} from '@/services/crypto-risk-assessment';
 import {CryptoBalance} from '@/services/crypto';
-import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
+import {Card, CardContent, CardHeader} from '@/components/ui/card';
 import {Button} from '@/components/ui/button';
 import {
   ArrowUp,
@@ -16,25 +16,19 @@ import {
   Shield,
   Coins,
   QrCode,
+  MoreVertical,
+  Send,
+  Receipt,
+  Wallet2,
+  BarChart3,
+  Home
 } from 'lucide-react';
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from '@/components/ui/dropdown-menu';
 import {ScrollArea} from '@/components/ui/scroll-area';
 import {cn} from '@/lib/utils';
 import CryptoBalanceCard from '@/components/CryptoBalanceCard';
-import {
-  Banknote,
-  Home,
-  LayoutDashboard,
-  ListChecks,
-  Settings,
-  User,
-  Wallet2,
-  MoreVertical,
-  Send,
-  Receipt,
-  TrendingDown
-} from "lucide-react";
+import {TrendingUp, Banknote, LayoutDashboard, ListChecks, Settings, User} from "lucide-react";
 
 const WalletCard: React.FC<{
   name: string;
@@ -48,7 +42,7 @@ const WalletCard: React.FC<{
       <CardHeader className="flex items-center justify-between pb-2 space-y-0 p-4" style={{backgroundColor: color}}>
         <div className="flex items-center space-x-2">
           <Icon className="h-6 w-6 text-white"/>
-          <CardTitle className="text-lg font-extrabold tracking-tight text-white">{name}</CardTitle>
+          <div className="text-lg font-extrabold tracking-tight text-white">{name}</div>
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -258,3 +252,4 @@ export default function HomePage() {
     </div>
   );
 }
+
