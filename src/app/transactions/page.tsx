@@ -26,13 +26,13 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({symbol}) => {
   return (
     <Card className="w-full rounded-xl shadow-md overflow-hidden">
       <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 p-4">
-        <CardTitle className="text-sm font-medium">Transaction History ({symbol})</CardTitle>
+        <CardTitle className="text-lg font-extrabold tracking-tight">Transaction History ({symbol})</CardTitle>
       </CardHeader>
       <CardContent className="px-4 p-4">
         <ScrollArea className="rounded-md border">
           <div className="p-2">
             {transactions.map((transaction, index) => (
-              <div key={index} className="flex items-center justify-between py-2">
+              <div key={index} className="flex items-center justify-between py-2 px-2">
                 <div className="flex items-center space-x-2">
                   {transaction.type === 'send' ? (
                     <Send className="h-4 w-4 text-red-500"/>
