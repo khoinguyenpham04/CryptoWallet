@@ -4,10 +4,8 @@ import {useEffect, useState} from 'react';
 import {getCryptoBalances} from '@/services/crypto';
 import {getCryptoRiskAssessment} from '@/services/crypto-risk-assessment';
 import {CryptoBalance} from '@/services/crypto';
-import {Card, CardContent, CardHeader} from '@/components/ui/card';
 import {Button} from '@/components/ui/button';
 import {
-  Plus,
   ArrowDown,
   ArrowUp,
   Activity,
@@ -17,18 +15,12 @@ import {
   MoreVertical,
   Send,
   Receipt,
-  Wallet2,
-  BarChart3,
-  Home,
   PiggyBank,
   CreditCard,
   TrendingUp,
-  Banknote,
+  HomeIcon,
   LayoutDashboard,
-  ListChecks,
-  Settings,
   User,
-  TrendingDown
 } from 'lucide-react';
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from '@/components/ui/dropdown-menu';
@@ -36,6 +28,12 @@ import {ScrollArea} from '@/components/ui/scroll-area';
 import {cn} from '@/lib/utils';
 import CryptoBalanceCard from '@/components/CryptoBalanceCard';
 import React from "react";
+import {Bank} from "lucide-react";
+import {LineChart} from "lucide-react";
+import {BarChart3} from "lucide-react";
+import {Wallet2} from "lucide-react";
+import {Plus} from "lucide-react";
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 
 
 const WalletCard: React.FC<{
@@ -47,7 +45,7 @@ const WalletCard: React.FC<{
 }> = ({name, balance, ethValue, color, icon: Icon}) => {
   return (
     <Card className="w-full rounded-xl shadow-md overflow-hidden">
-      <CardHeader className="flex items-center justify-between pb-2 space-y-0 p-4" style={{backgroundColor: color}}>
+      <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 p-4" style={{backgroundColor: color}}>
         <div className="flex items-center space-x-2">
           <Icon className="h-6 w-6 text-white"/>
           <div className="text-lg font-extrabold tracking-tight text-white">{name}</div>
@@ -206,7 +204,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen bg-background px-8 md:px-16">
       <header className="py-10 flex items-center justify-between">
-        <div className="font-extrabold text-4xl tracking-tighter">Wallets</div>
+        <div className="font-extrabold text-6xl tracking-tighter">Wallets</div>
         <div className="flex items-center space-x-4">
           <Button variant="ghost" className="h-8 w-8 p-0 rounded-full">
             <User className="w-5 h-5"/>
@@ -222,7 +220,7 @@ export default function HomePage() {
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-lg font-semibold tracking-tighter">Your Wallets</h2>
             <Button variant="ghost" className="h-8 w-8 p-0 rounded-full">
-              <Plus className="h-5 w-5"/>
+              <Plus className="w-5 h-5"/>
             </Button>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
