@@ -50,9 +50,9 @@ export default function RootLayout({
               <Home className="h-10 w-10"/>
             </Button>
           </Link>
-          <Link href="/balances">
+          <Link href="/performance">
             <Button variant="ghost">
-              <Coins className="h-8 w-8"/>
+              <BarChart3 className="h-8 w-8"/>
             </Button>
           </Link>
         </div>
@@ -62,4 +62,5 @@ export default function RootLayout({
     </html>
   );
 }
+
 
