@@ -26,7 +26,7 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({symbol}) => {
   return (
     <Card className="w-full rounded-xl shadow-md overflow-hidden">
       <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 p-4">
-        <CardTitle className="text-lg font-extrabold tracking-tight">Transaction History ({symbol})</CardTitle>
+        <CardTitle className="text-3xl font-extrabold tracking-tight">Transaction History ({symbol})</CardTitle>
       </CardHeader>
       <CardContent className="px-4 p-4">
         <ScrollArea className="rounded-md border">
