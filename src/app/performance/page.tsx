@@ -153,7 +153,7 @@ export default function PerformancePage() {
   return (
     <div className="container py-8">
       <h1 className="text-2xl font-bold mb-4">Performance</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 gap-8">
         <PerformanceLineChart />
         <AssetAllocationBarChart />
         <PortfolioCompositionPieChart />
@@ -161,3 +161,4 @@ export default function PerformancePage() {
     </div>
   );
 }
+
