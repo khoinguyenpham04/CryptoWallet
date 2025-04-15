@@ -7,6 +7,7 @@ import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {ScrollArea} from '@/components/ui/scroll-area';
 import {Send, Receipt} from 'lucide-react';
 import {ArrowDown, ArrowUp} from "lucide-react";
+import {Badge} from "@/components/ui/badge";
 
 interface TransactionHistoryProps {
   symbol: string;
@@ -26,7 +27,7 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({symbol}) => {
 
   return (
     <Card className="w-full rounded-xl shadow-md overflow-hidden">
-      <CardHeader className="flex items-center space-x-3 p-4">
+      <CardHeader className="flex items-center space-x-3 p-4 pb-2">
         <CardTitle className="text-2xl font-extrabold tracking-tight flex items-center space-x-2">
           {symbol === 'BTC' ? (
             <>
@@ -84,3 +85,4 @@ export default function TransactionsPage() {
     </div>
   );
 }
+
