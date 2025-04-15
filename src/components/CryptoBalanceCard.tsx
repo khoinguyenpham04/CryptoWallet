@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {getCryptoRiskAssessment} from '@/services/crypto-risk-assessment';
 import {CryptoBalance} from '@/services/crypto';
@@ -24,23 +24,22 @@ const CryptoBalanceCard: React.FC<CryptoBalanceCardProps> = ({balance}) => {
   }, [balance.symbol]);
 
   return (
-    <Card>
+    <Card className="w-full">
       <CardHeader>
-        <CardTitle>{balance.symbol}</CardTitle>
-        <CardDescription>
-          Amount: {balance.amount}
-          {riskAssessment && (
-            <>
-              <br />
-              Risk Score: {riskAssessment.riskScore}
-            </>
-          )}
-        </CardDescription>
+        <CardTitle>
+          {balance.symbol}
+        </CardTitle>
       </CardHeader>
-      <CardContent className="flex items-center justify-between">
-        <Button variant="outline">
-          <QrCode className="mr-2 h-4 w-4"/>
-          Receive
+      <CardContent>
+        Amount: {balance.amount}
+        {riskAssessment && (
+          <>
+            <p>Risk Score: {riskAssessment.riskScore}</p>
+            <p>Risk Factors: {riskAssessment.riskFactors}</p>
+          </>
+        )}
+        <Button>
+          <QrCode/>
         </Button>
       </CardContent>
     </Card>
@@ -48,3 +47,4 @@ const CryptoBalanceCard: React.FC<CryptoBalanceCardProps> = ({balance}) => {
 };
 
 export default CryptoBalanceCard;
+
