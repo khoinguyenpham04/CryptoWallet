@@ -1,9 +1,9 @@
 'use client';
 
 import {useEffect, useState} from 'react';
-import {getCryptoBalances, getCryptoTransactions} from '@/services/crypto';
+import {getCryptoBalances} from '@/services/crypto';
 import {getCryptoRiskAssessment} from '@/services/crypto-risk-assessment';
-import {CryptoBalance, CryptoTransaction} from '@/services/crypto';
+import {CryptoBalance} from '@/services/crypto';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {Button} from '@/components/ui/button';
 import {
@@ -36,7 +36,8 @@ import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from '@/components/ui/dropdown-menu';
 import {ScrollArea} from '@/components/ui/scroll-area';
 import {cn} from '@/lib/utils';
-import CryptoBalanceCard from "@/components/CryptoBalanceCard";
+import CryptoBalanceCard from '@/components/CryptoBalanceCard';
+import Link from 'next/link';
 
 const WalletCard: React.FC<{
   name: string;
@@ -105,51 +106,7 @@ const CryptoItem: React.FC<{
   );
 };
 
-const TransactionHistory: React.FC<{symbol: string}> = ({symbol}) => {
-  const [transactions, setTransactions] = useState<CryptoTransaction[]>([]);
-
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      const fetchedTransactions = await getCryptoTransactions(symbol);
-      setTransactions(fetchedTransactions);
-    };
-
-    fetchTransactions();
-  }, [symbol]);
-
-  return (
-    <Card className="w-full rounded-xl shadow-md overflow-hidden">
-      <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 p-4">
-        <CardTitle className="text-sm font-medium">Transaction History ({symbol})</CardTitle>
-      </CardHeader>
-      <CardContent className="p-4">
-        <ScrollArea className="rounded-md border">
-          <div className="p-2">
-            {transactions.map((transaction, index) => (
-              <div key={index} className="flex items-center justify-between py-2">
-                <div className="flex items-center space-x-2">
-                  {transaction.type === 'send' ? (
-                    <Send className="h-4 w-4 text-red-500"/>
-                  ) : (
-                    <Receipt className="h-4 w-4 text-green-500"/>
-                  )}
-                  <div>
-                    <div className="font-medium">
-                      {transaction.type === 'send' ? 'Sent' : 'Received'} {transaction.amount} {symbol}
-                    </div>
-                    <div className="text-sm text-muted-foreground">{transaction.date}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </ScrollArea>
-      </CardContent>
-    </Card>
-  );
-};
-
-export default function CryptoWalletApp() {
+export default function HomePage() {
   const [balances, setBalances] = useState<CryptoBalance[]>([]);
   const [riskAssessments, setRiskAssessments] = useState<{[key: string]: {riskScore: number; riskFactors: string}}>({});
 
@@ -291,22 +248,13 @@ export default function CryptoWalletApp() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-lg font-semibold tracking-tighter mb-5">Transaction History</h2>
+          <h2 className="text-lg font-semibold tracking-tighter mb-5">Balances</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {balances.map(balance => (
-              <TransactionHistory key={balance.symbol} symbol={balance.symbol}/>
+              <CryptoBalanceCard key={balance.symbol} balance={balance}/>
             ))}
-
           </div>
         </section>
-          <section className="mb-8">
-              <h2 className="text-lg font-semibold tracking-tighter mb-5">Balances</h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  {balances.map(balance => (
-                      <CryptoBalanceCard key={balance.symbol} balance={balance}/>
-                  ))}
-              </div>
-          </section>
       </main>
       <footer className="sticky bottom-0 bg-secondary p-6 border-t">
         <div className="flex justify-around">
@@ -319,9 +267,11 @@ export default function CryptoWalletApp() {
           <Button variant="ghost">
             <PiggyBank className="h-8 w-8"/>
           </Button>
-          <Button variant="ghost">
-            <Wallet2 className="h-8 w-8"/>
-          </Button>
+          <Link href="/transactions">
+            <Button variant="ghost">
+              <Wallet2 className="h-8 w-8"/>
+            </Button>
+          </Link>
           <Button variant="ghost">
             <Settings className="h-8 w-8"/>
           </Button>
