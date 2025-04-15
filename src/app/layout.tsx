@@ -4,12 +4,8 @@ import './globals.css';
 import {
   Coins,
   Home,
-  ListChecks,
-  PiggyBank,
-  Settings,
-  TrendingUp,
   Wallet2,
-  BarChart3,
+  BarChart3
 } from "lucide-react";
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
@@ -44,14 +40,14 @@ export default function RootLayout({
       </main>
       <footer className="sticky bottom-0 bg-secondary p-6 border-t">
         <div className="flex justify-around">
-          <Link href="/">
-            <Button variant="ghost">
-              <Home className="h-8 w-8"/>
-            </Button>
-          </Link>
           <Link href="/transactions">
             <Button variant="ghost">
               <Wallet2 className="h-8 w-8"/>
+            </Button>
+          </Link>
+          <Link href="/">
+            <Button variant="ghost">
+              <Home className="h-10 w-10"/>
             </Button>
           </Link>
           <Link href="/balances">
@@ -59,14 +55,6 @@ export default function RootLayout({
               <Coins className="h-8 w-8"/>
             </Button>
           </Link>
-          <Link href="/performance">
-            <Button variant="ghost">
-              <BarChart3 className="h-8 w-8"/>
-            </Button>
-          </Link>
-          <Button variant="ghost">
-            <Settings className="h-8 w-8"/>
-          </Button>
         </div>
       </footer>
     </div>
@@ -74,3 +62,4 @@ export default function RootLayout({
     </html>
   );
 }
+
