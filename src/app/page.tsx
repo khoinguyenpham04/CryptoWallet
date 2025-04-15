@@ -11,9 +11,6 @@ import {
   ArrowUp,
   ArrowDown,
   Plus,
-  Home,
-  Wallet2,
-  Settings,
   Building2,
   PiggyBank,
   CreditCard,
@@ -28,16 +25,14 @@ import {
   TrendingUp,
   Banknote,
   LayoutDashboard,
-  ListChecks,
-  Send,
   Receipt,
+  Send,
 } from 'lucide-react';
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from '@/components/ui/dropdown-menu';
 import {ScrollArea} from '@/components/ui/scroll-area';
 import {cn} from '@/lib/utils';
 import CryptoBalanceCard from '@/components/CryptoBalanceCard';
-import Link from 'next/link';
 
 const WalletCard: React.FC<{
   name: string;
@@ -256,27 +251,6 @@ export default function HomePage() {
           </div>
         </section>
       </main>
-      <footer className="sticky bottom-0 bg-secondary p-6 border-t">
-        <div className="flex justify-around">
-          <Button variant="ghost">
-            <Home className="h-8 w-8"/>
-          </Button>
-          <Button variant="ghost">
-            <ListChecks className="h-8 w-8"/>
-          </Button>
-          <Button variant="ghost">
-            <PiggyBank className="h-8 w-8"/>
-          </Button>
-          <Link href="/transactions">
-            <Button variant="ghost">
-              <Wallet2 className="h-8 w-8"/>
-            </Button>
-          </Link>
-          <Button variant="ghost">
-            <Settings className="h-8 w-8"/>
-          </Button>
-        </div>
-      </footer>
     </div>
   );
 }
