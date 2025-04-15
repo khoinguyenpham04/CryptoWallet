@@ -26,7 +26,7 @@ const CryptoBalanceCard: React.FC<CryptoBalanceCardProps> = ({balance}) => {
 
   return (
     <Card className="w-full rounded-xl shadow-md overflow-hidden">
-      <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 p-4">
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 pb-1">
         <CardTitle className="text-lg font-semibold tracking-tight">{balance.symbol}</CardTitle>
         <Button variant="outline" size="icon">
           <QrCode className="h-4 w-4"/>
