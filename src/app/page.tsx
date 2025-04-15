@@ -18,6 +18,11 @@ import {
   Building2,
   PiggyBank,
   CreditCard,
+  User,
+  ShoppingBag,
+  Users,
+  Briefcase,
+  Gem,
 } from 'lucide-react';
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from '@/components/ui/dropdown-menu';
@@ -28,8 +33,8 @@ const WalletCard: React.FC<{
   balance: string;
   ethValue: string;
   color: string;
-  icon: string;
-}> = ({name, balance, ethValue, color, icon}) => {
+  icon: React.FC;
+}> = ({name, balance, ethValue, color, icon: Icon}) => {
   return (
     <Card className="w-full rounded-xl shadow-md overflow-hidden" style={{backgroundColor: color}}>
       <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 p-4">
@@ -65,7 +70,7 @@ const CryptoItem: React.FC<{
   icon: string;
 }> = ({name, symbol, amount, value, change, changeType, icon}) => {
   return (
-    <div className="flex items-center justify-between py-3">
+    <div className="flex items-center justify-between py-3 px-3">
       <div className="flex items-center space-x-4">
         <Avatar className="h-8 w-8">
           <AvatarImage src={icon} alt={name}/>
@@ -120,39 +125,39 @@ export default function HomePage() {
 
   const walletCards = [
     {
-      name: 'Anna',
+      name: 'Personal',
       balance: '$15,22',
       ethValue: '15.22 ETH',
       color: '#6366F1',
-      icon: 'path-to-icon-1',
+      icon: User,
     },
     {
       name: 'Shopping',
       balance: '$4,32',
       ethValue: '4.32 ETH',
       color: '#10B981',
-      icon: 'path-to-icon-2',
+      icon: ShoppingBag,
     },
     {
-      name: 'Social Wallet',
+      name: 'Community',
       balance: '$0,42',
       ethValue: '0.42 ETH',
       color: '#3B82F6',
-      icon: 'path-to-icon-3',
+      icon: Users,
     },
     {
-      name: 'Holidays',
+      name: 'Business',
       balance: '$3,34',
       ethValue: '3.34 ETH',
       color: '#F59E0B',
-      icon: 'path-to-icon-4',
+      icon: Briefcase,
     },
     {
-      name: 'NFT Collection',
+      name: 'Investments',
       balance: '$2,32',
       ethValue: '2.32 ETH',
       color: '#EF4444',
-      icon: 'path-to-icon-5',
+      icon: Gem,
     },
   ];
 
@@ -188,8 +193,8 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
-      <header className="px-12 py-8 flex items-center justify-between">
-        <div className="font-extrabold text-5xl tracking-tighter">Wallets</div>
+      <header className="px-24 py-12 flex items-center justify-between">
+        <div className="font-extrabold text-7xl tracking-tighter">Wallets</div>
         <div className="flex items-center space-x-4">
           <Button variant="ghost" className="h-8 w-8 p-0 rounded-full">
             {/* Replace with appropriate icon */}
@@ -202,7 +207,7 @@ export default function HomePage() {
           </Avatar>
         </div>
       </header>
-      <main className="flex-1 overflow-y-auto px-12">
+      <main className="flex-1 overflow-y-auto px-24">
         <section className="mb-8">
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-lg font-semibold tracking-tighter">Your Wallets</h2>
@@ -253,4 +258,3 @@ export default function HomePage() {
     </div>
   );
 }
-
