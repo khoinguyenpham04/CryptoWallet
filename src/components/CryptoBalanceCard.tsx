@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import {Badge} from "@/components/ui/badge";
 import {Coins} from "lucide-react";
+import React from "react";
 
 interface CryptoBalanceCardProps {
   balance: CryptoBalance;
