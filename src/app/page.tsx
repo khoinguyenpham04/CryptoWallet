@@ -18,13 +18,15 @@ import {
   TrendingUp,
   Coins,
   QrCode,
+  Receipt,
+  Send
 } from 'lucide-react';
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from '@/components/ui/dropdown-menu';
 import {ScrollArea} from '@/components/ui/scroll-area';
 import {cn} from '@/lib/utils';
 import CryptoBalanceCard from '@/components/CryptoBalanceCard';
-import {Banknote, Home, LayoutDashboard, ListChecks, Send, Settings, User, Wallet2} from "lucide-react";
+import {Banknote, Home, LayoutDashboard, ListChecks, Settings, User, Wallet2} from "lucide-react";
 
 // Import recharts components
 import {
@@ -122,6 +124,11 @@ const data = [
   {name: 'May', value: 4800},
   {name: 'Jun', value: 3800},
   {name: 'Jul', value: 4300},
+  {name: 'Aug', value: 5400},
+  {name: 'Sep', value: 3200},
+  {name: 'Oct', value: 6700},
+  {name: 'Nov', value: 2100},
+  {name: 'Dec', value: 7800},
 ];
 
 const chartConfig = {
