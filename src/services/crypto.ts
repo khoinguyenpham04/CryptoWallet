@@ -82,5 +82,19 @@ export async function getCryptoTransactions(symbol: string): Promise<CryptoTrans
       date: '2024-01-05',
       type: 'receive',
     },
+    {
+      id: '3',
+      symbol: symbol,
+      amount: 0.2,
+      date: '2024-01-10',
+      type: 'send',
+    },
+    {
+      id: '4',
+      symbol: symbol,
+      amount: 0.7,
+      date: '2024-01-15',
+      type: 'receive',
+    },
   ];
 }

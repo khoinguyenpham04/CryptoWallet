@@ -1,19 +1,18 @@
 'use client';
 
 import {useEffect, useState} from 'react';
-import {getCryptoBalances} from '@/services/crypto';
+import {getCryptoBalances, getCryptoTransactions} from '@/services/crypto';
 import {getCryptoRiskAssessment} from '@/services/crypto-risk-assessment';
-import {CryptoBalance} from '@/services/crypto';
+import {CryptoBalance, CryptoTransaction} from '@/services/crypto';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {Button} from '@/components/ui/button';
 import {
-  QrCode,
   MoreVertical,
   ArrowUp,
   ArrowDown,
   Plus,
   Home,
-  Wallet,
+  Wallet2,
   Settings,
   Building2,
   PiggyBank,
@@ -29,10 +28,15 @@ import {
   TrendingUp,
   Banknote,
   LayoutDashboard,
+  ListChecks,
+  Send,
+  Receipt,
 } from 'lucide-react';
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from '@/components/ui/dropdown-menu';
 import {ScrollArea} from '@/components/ui/scroll-area';
+import {cn} from '@/lib/utils';
+import CryptoBalanceCard from "@/components/CryptoBalanceCard";
 
 const WalletCard: React.FC<{
   name: string;
@@ -76,7 +80,7 @@ const CryptoItem: React.FC<{
   icon: string;
 }> = ({name, symbol, amount, value, change, changeType, icon}) => {
   return (
-    <div className="flex items-center justify-between py-3 px-3">
+    <div className="flex items-center justify-between py-3 px-3 rounded-md hover:bg-secondary">
       <div className="flex items-center space-x-4">
         <Avatar className="h-8 w-8">
           <AvatarImage src={icon} alt={name}/>
@@ -101,7 +105,51 @@ const CryptoItem: React.FC<{
   );
 };
 
-export default function WalletDashboard() {
+const TransactionHistory: React.FC<{symbol: string}> = ({symbol}) => {
+  const [transactions, setTransactions] = useState<CryptoTransaction[]>([]);
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      const fetchedTransactions = await getCryptoTransactions(symbol);
+      setTransactions(fetchedTransactions);
+    };
+
+    fetchTransactions();
+  }, [symbol]);
+
+  return (
+    <Card className="w-full rounded-xl shadow-md overflow-hidden">
+      <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 p-4">
+        <CardTitle className="text-sm font-medium">Transaction History ({symbol})</CardTitle>
+      </CardHeader>
+      <CardContent className="p-4">
+        <ScrollArea className="rounded-md border">
+          <div className="p-2">
+            {transactions.map((transaction, index) => (
+              <div key={index} className="flex items-center justify-between py-2">
+                <div className="flex items-center space-x-2">
+                  {transaction.type === 'send' ? (
+                    <Send className="h-4 w-4 text-red-500"/>
+                  ) : (
+                    <Receipt className="h-4 w-4 text-green-500"/>
+                  )}
+                  <div>
+                    <div className="font-medium">
+                      {transaction.type === 'send' ? 'Sent' : 'Received'} {transaction.amount} {symbol}
+                    </div>
+                    <div className="text-sm text-muted-foreground">{transaction.date}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </ScrollArea>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default function CryptoWalletApp() {
   const [balances, setBalances] = useState<CryptoBalance[]>([]);
   const [riskAssessments, setRiskAssessments] = useState<{[key: string]: {riskScore: number; riskFactors: string}}>({});
 
@@ -135,7 +183,7 @@ export default function WalletDashboard() {
       balance: '$15,22',
       ethValue: '15.22 ETH',
       color: '#6366F1',
-      icon: Coins,
+      icon: CreditCard,
     },
     {
       name: 'Savings',
@@ -198,9 +246,9 @@ export default function WalletDashboard() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
-      <header className="px-4 py-6 sm:px-6 lg:px-8 flex items-center justify-between">
-        <div className="font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter">Wallets</div>
+    <div className="flex flex-col min-h-screen bg-background px-8 md:px-16">
+      <header className="py-10 flex items-center justify-between">
+        <div className="font-extrabold text-6xl tracking-tighter">Wallets</div>
         <div className="flex items-center space-x-4">
           <Button variant="ghost" className="h-8 w-8 p-0 rounded-full">
             <MoreVertical className="h-5 w-5"/>
@@ -211,7 +259,7 @@ export default function WalletDashboard() {
           </Avatar>
         </div>
       </header>
-      <main className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8">
+      <main className="flex-1 overflow-y-auto">
         <section className="mb-8">
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-lg font-semibold tracking-tighter">Your Wallets</h2>
@@ -219,7 +267,7 @@ export default function WalletDashboard() {
               <Plus className="h-5 w-5"/>
             </Button>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {walletCards.map((card, index) => (
               <WalletCard key={index} {...card} />
             ))}
@@ -234,30 +282,48 @@ export default function WalletDashboard() {
             </Button>
           </div>
           <ScrollArea className="rounded-md border">
-            <div className="p-2">
+            <div className="p-4">
               {watchingItems.map((item, index) => (
                 <CryptoItem key={index} {...item} />
               ))}
             </div>
           </ScrollArea>
         </section>
+
+        <section className="mb-8">
+          <h2 className="text-lg font-semibold tracking-tighter mb-5">Transaction History</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {balances.map(balance => (
+              <TransactionHistory key={balance.symbol} symbol={balance.symbol}/>
+            ))}
+
+          </div>
+        </section>
+          <section className="mb-8">
+              <h2 className="text-lg font-semibold tracking-tighter mb-5">Balances</h2>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {balances.map(balance => (
+                      <CryptoBalanceCard key={balance.symbol} balance={balance}/>
+                  ))}
+              </div>
+          </section>
       </main>
-      <footer className="sticky bottom-0 bg-secondary p-4 sm:p-6 border-t">
+      <footer className="sticky bottom-0 bg-secondary p-6 border-t">
         <div className="flex justify-around">
           <Button variant="ghost">
-            <LayoutDashboard className="h-6 w-6"/>
+            <Home className="h-8 w-8"/>
           </Button>
           <Button variant="ghost">
-            <Banknote className="h-6 w-6"/>
+            <ListChecks className="h-8 w-8"/>
           </Button>
           <Button variant="ghost">
-            <PiggyBank className="h-6 w-6"/>
+            <PiggyBank className="h-8 w-8"/>
           </Button>
           <Button variant="ghost">
-            <Wallet className="h-6 w-6"/>
+            <Wallet2 className="h-8 w-8"/>
           </Button>
           <Button variant="ghost">
-            <Settings className="h-6 w-6"/>
+            <Settings className="h-8 w-8"/>
           </Button>
         </div>
       </footer>
