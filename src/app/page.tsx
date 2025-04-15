@@ -179,7 +179,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <header className="px-4 py-6 flex items-center justify-between">
-        <div className="font-bold text-2xl">Wallets</div>
+        <div className="font-bold text-2xl tracking-tighter">Wallets</div>
         <div className="flex items-center space-x-2">
           <Button variant="ghost" className="h-8 w-8 p-0 rounded-full">
             {/* Replace with appropriate icon */}
@@ -195,7 +195,7 @@ export default function Home() {
       <main className="flex-1 overflow-y-auto px-4">
         <section className="mb-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold">Your Wallets</h2>
+            <h2 className="text-lg font-semibold tracking-tighter">Your Wallets</h2>
             <Button variant="ghost" className="h-8 w-8 p-0 rounded-full">
               <Plus className="h-5 w-5"/>
             </Button>
@@ -209,7 +209,7 @@ export default function Home() {
 
         <section className="mb-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold">Watching</h2>
+            <h2 className="text-lg font-semibold tracking-tighter">Watching</h2>
             <Button variant="ghost" className="h-8 w-8 p-0 rounded-full">
               <MoreVertical className="h-5 w-5"/>
             </Button>

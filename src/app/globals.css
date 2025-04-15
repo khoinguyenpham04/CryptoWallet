@@ -72,6 +72,14 @@ body {
     --sidebar-border: 0 0% 35%;    /* Slightly Lighter Dark Gray */
     --sidebar-ring: 180 100% 25%; /* Teal */
   }
+
+  .font-thick {
+    font-weight: 700;
+  }
+
+  .tracking-tighter {
+    letter-spacing: -0.05em;
+  }
 }
 
 @layer base {
