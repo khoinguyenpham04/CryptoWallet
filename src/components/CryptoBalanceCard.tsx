@@ -5,7 +5,11 @@ import {CryptoBalance} from '@/services/crypto';
 import {useEffect, useState} from 'react';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {Button} from '@/components/ui/button';
-import {QrCode} from 'lucide-react';
+import {
+  Bitcoin,
+  AlertTriangle,
+  QrCode
+} from 'lucide-react';
 import {Badge} from "@/components/ui/badge";
 
 interface CryptoBalanceCardProps {
@@ -27,7 +31,10 @@ const CryptoBalanceCard: React.FC<CryptoBalanceCardProps> = ({balance}) => {
   return (
     <Card className="w-full rounded-xl shadow-md overflow-hidden">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 pb-1">
-        <CardTitle className="text-lg font-semibold tracking-tight">{balance.symbol}</CardTitle>
+        <div className="flex items-center space-x-2">
+          <Bitcoin className="h-5 w-5 text-yellow-500"/>
+          <CardTitle className="text-lg font-semibold tracking-tight">{balance.symbol}</CardTitle>
+        </div>
         <Button variant="outline" size="icon">
           <QrCode className="h-4 w-4"/>
         </Button>
@@ -39,7 +46,10 @@ const CryptoBalanceCard: React.FC<CryptoBalanceCardProps> = ({balance}) => {
         </div>
         {riskAssessment && (
           <div className="mt-4">
-            <h4 className="mb-2 text-sm font-semibold">Risk Assessment</h4>
+            <h4 className="mb-2 text-sm font-semibold flex items-center space-x-1">
+              <AlertTriangle className="h-4 w-4 text-yellow-500"/>
+              <span>Risk Assessment</span>
+            </h4>
             <div className="rounded-md border p-3 shadow-sm">
               <div className="flex items-center space-x-2">
                 <p className="text-sm font-medium">Risk Score:</p>
