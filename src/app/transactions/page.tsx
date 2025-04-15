@@ -76,7 +76,7 @@ export default function TransactionsPage() {
 
   return (
     <div className="container py-8">
-      <h1 className="font-extrabold text-6xl tracking-tighter mb-4">Transaction History</h1>
+      <h1 className="font-extrabold text-4xl tracking-tighter mb-4">Transaction History</h1>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {symbols.map(symbol => (
           <TransactionHistory key={symbol} symbol={symbol}/>
@@ -85,3 +85,4 @@ export default function TransactionsPage() {
     </div>
   );
 }
+
