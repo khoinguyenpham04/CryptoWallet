@@ -24,9 +24,27 @@ import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger
 import {ScrollArea} from '@/components/ui/scroll-area';
 import {cn} from '@/lib/utils';
 import CryptoBalanceCard from '@/components/CryptoBalanceCard';
+import {Banknote, Home, LayoutDashboard, ListChecks, Send, Settings, User, Wallet2} from "lucide-react";
 
 // Import recharts components
-import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer} from 'recharts';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from 'recharts';
+
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+} from "@/components/ui/chart";
 
 const WalletCard: React.FC<{
   name: string;
@@ -106,6 +124,13 @@ const data = [
   {name: 'Jul', value: 4300},
 ];
 
+const chartConfig = {
+  value: {
+    label: "Value",
+    color: "hsl(var(--primary))",
+  },
+};
+
 const PerformanceChart: React.FC = () => {
   return (
     <Card className="w-full rounded-xl shadow-md overflow-hidden">
@@ -113,15 +138,23 @@ const PerformanceChart: React.FC = () => {
         <CardTitle className="text-lg font-semibold tracking-tight">Performance</CardTitle>
       </CardHeader>
       <CardContent className="p-4">
-        <ResponsiveContainer width="100%" height={200}>
+        <ChartContainer config={chartConfig} className="h-[200px]">
           <LineChart data={data}>
-            <CartesianGrid strokeDasharray="3 3"/>
-            <XAxis dataKey="name"/>
-            <YAxis/>
-            <Tooltip/>
-            <Line type="monotone" dataKey="value" stroke="#8884d8"/>
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))"/>
+            <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" />
+            <YAxis stroke="hsl(var(--muted-foreground))" />
+            <ChartTooltip>
+              <ChartTooltipContent />
+            </ChartTooltip>
+            <Line
+              type="monotone"
+              dataKey="value"
+              stroke="hsl(var(--primary))"
+              strokeWidth={2}
+              dot={false}
+            />
           </LineChart>
-        </ResponsiveContainer>
+        </ChartContainer>
       </CardContent>
     </Card>
   );
@@ -285,3 +318,4 @@ export default function HomePage() {
     </div>
   );
 }
+
