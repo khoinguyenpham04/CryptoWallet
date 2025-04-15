@@ -34,11 +34,13 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({symbol}) => {
             {transactions.map((transaction, index) => (
               <div key={index} className="flex items-center justify-between py-2 px-2">
                 <div className="flex items-center space-x-2">
-                  {transaction.type === 'send' ? (
-                    <Send className="h-4 w-4 text-red-500"/>
-                  ) : (
-                    <Receipt className="h-4 w-4 text-green-500"/>
-                  )}
+                  <div className="rounded-full bg-secondary p-2">
+                    {transaction.type === 'send' ? (
+                      <Send className="h-6 w-6 text-red-500"/>
+                    ) : (
+                      <Receipt className="h-6 w-6 text-green-500"/>
+                    )}
+                  </div>
                   <div>
                     <div className="font-medium">
                       {transaction.type === 'send' ? 'Sent' : 'Received'} {transaction.amount} {symbol}
