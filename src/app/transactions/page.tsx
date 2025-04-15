@@ -6,6 +6,7 @@ import {CryptoTransaction} from '@/services/crypto';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {ScrollArea} from '@/components/ui/scroll-area';
 import {Send, Receipt} from 'lucide-react';
+import {ArrowDown, ArrowUp} from "lucide-react";
 
 interface TransactionHistoryProps {
   symbol: string;
@@ -25,8 +26,20 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({symbol}) => {
 
   return (
     <Card className="w-full rounded-xl shadow-md overflow-hidden">
-      <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 p-4">
-        <CardTitle className="text-3xl font-extrabold tracking-tight">Transaction History ({symbol})</CardTitle>
+      <CardHeader className="flex items-center space-x-3 p-4">
+        <CardTitle className="text-2xl font-extrabold tracking-tight flex items-center space-x-2">
+          {symbol === 'BTC' ? (
+            <>
+              <ArrowDown className="h-5 w-5 text-yellow-500"/>
+              <span>Transaction History (BTC)</span>
+            </>
+          ) : (
+            <>
+              <ArrowUp className="h-5 w-5 text-blue-500"/>
+              <span>Transaction History (ETH)</span>
+            </>
+          )}
+        </CardTitle>
       </CardHeader>
       <CardContent className="px-4 p-4">
         <ScrollArea className="rounded-md border">
@@ -34,7 +47,7 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({symbol}) => {
             {transactions.map((transaction, index) => (
               <div key={index} className="flex items-center justify-between py-2 px-2">
                 <div className="flex items-center space-x-2">
-                  <div className="rounded-full bg-secondary p-2">
+                  <div className="rounded-full p-2">
                     {transaction.type === 'send' ? (
                       <Send className="h-6 w-6 text-red-500"/>
                     ) : (
