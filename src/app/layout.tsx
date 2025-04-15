@@ -9,9 +9,11 @@ import {
   Settings,
   TrendingUp,
   Wallet2,
+  BarChart3,
 } from "lucide-react";
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
+import {cn} from "@/lib/utils";
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -35,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-    <body className={`${geistSans.variable} ${geistMono.variable} antialiased px-4`}>
+    <body className={cn(geistSans.variable, geistMono.variable, "antialiased px-8 md:px-16")}>
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
         {children}
@@ -57,9 +59,11 @@ export default function RootLayout({
               <Coins className="h-8 w-8"/>
             </Button>
           </Link>
-          <Button variant="ghost">
-            <TrendingUp className="h-8 w-8"/>
-          </Button>
+          <Link href="/performance">
+            <Button variant="ghost">
+              <BarChart3 className="h-8 w-8"/>
+            </Button>
+          </Link>
           <Button variant="ghost">
             <Settings className="h-8 w-8"/>
           </Button>
@@ -70,4 +74,3 @@ export default function RootLayout({
     </html>
   );
 }
-
