@@ -6,12 +6,22 @@ import {getCryptoRiskAssessment} from '@/services/crypto-risk-assessment';
 import {CryptoBalance} from '@/services/crypto';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {Button} from '@/components/ui/button';
-import {QrCode, MoreVertical, ArrowUp, ArrowDown, Plus} from 'lucide-react';
+import {
+  QrCode,
+  MoreVertical,
+  ArrowUp,
+  ArrowDown,
+  Plus,
+  Home,
+  Wallet,
+  Settings,
+  Building2,
+  PiggyBank,
+  CreditCard,
+} from 'lucide-react';
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from '@/components/ui/dropdown-menu';
-import {Progress} from '@/components/ui/progress';
 import {ScrollArea} from '@/components/ui/scroll-area';
-import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
 
 const WalletCard: React.FC<{
   name: string;
@@ -80,7 +90,7 @@ const CryptoItem: React.FC<{
   );
 };
 
-export default function Home() {
+export default function HomePage() {
   const [balances, setBalances] = useState<CryptoBalance[]>([]);
   const [riskAssessments, setRiskAssessments] = useState<{[key: string]: {riskScore: number; riskFactors: string}}>({});
 
@@ -178,9 +188,9 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
-      <header className="px-4 py-6 flex items-center justify-between">
-        <div className="font-bold text-2xl tracking-tighter">Wallets</div>
-        <div className="flex items-center space-x-2">
+      <header className="px-12 py-8 flex items-center justify-between">
+        <div className="font-extrabold text-5xl tracking-tighter">Wallets</div>
+        <div className="flex items-center space-x-4">
           <Button variant="ghost" className="h-8 w-8 p-0 rounded-full">
             {/* Replace with appropriate icon */}
             {/* You can replace with a bell icon or message icon */}
@@ -192,23 +202,23 @@ export default function Home() {
           </Avatar>
         </div>
       </header>
-      <main className="flex-1 overflow-y-auto px-6">
-        <section className="mb-6">
-          <div className="flex items-center justify-between mb-4">
+      <main className="flex-1 overflow-y-auto px-12">
+        <section className="mb-8">
+          <div className="flex items-center justify-between mb-5">
             <h2 className="text-lg font-semibold tracking-tighter">Your Wallets</h2>
             <Button variant="ghost" className="h-8 w-8 p-0 rounded-full">
               <Plus className="h-5 w-5"/>
             </Button>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {walletCards.map((card, index) => (
               <WalletCard key={index} {...card} />
             ))}
           </div>
         </section>
 
-        <section className="mb-6">
-          <div className="flex items-center justify-between mb-4">
+        <section className="mb-8">
+          <div className="flex items-center justify-between mb-5">
             <h2 className="text-lg font-semibold tracking-tighter">Watching</h2>
             <Button variant="ghost" className="h-8 w-8 p-0 rounded-full">
               <MoreVertical className="h-5 w-5"/>
@@ -221,22 +231,26 @@ export default function Home() {
           </ScrollArea>
         </section>
       </main>
-      <footer className="sticky bottom-0 bg-secondary p-4 border-t">
+      <footer className="sticky bottom-0 bg-secondary p-8 border-t">
         <div className="flex justify-around">
           <Button variant="ghost">
-            {/* Replace with appropriate icon */}
-            <QrCode className="h-6 w-6"/>
+            <Home className="h-6 w-6"/>
           </Button>
           <Button variant="ghost">
-            {/* Replace with appropriate icon */}
-            <QrCode className="h-6 w-6"/>
+            <CreditCard className="h-6 w-6"/>
           </Button>
           <Button variant="ghost">
-            {/* Replace with appropriate icon */}
-            <QrCode className="h-6 w-6"/>
+            <PiggyBank className="h-6 w-6"/>
+          </Button>
+          <Button variant="ghost">
+            <Building2 className="h-6 w-6"/>
+          </Button>
+          <Button variant="ghost">
+            <Settings className="h-6 w-6"/>
           </Button>
         </div>
       </footer>
     </div>
   );
 }
+
