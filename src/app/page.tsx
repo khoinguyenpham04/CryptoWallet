@@ -7,11 +7,9 @@ import {CryptoBalance} from '@/services/crypto';
 import {Card, CardContent, CardHeader} from '@/components/ui/card';
 import {Button} from '@/components/ui/button';
 import {
-  ArrowUp,
-  ArrowDown,
   Plus,
-  PiggyBank,
-  CreditCard,
+  ArrowDown,
+  ArrowUp,
   Activity,
   Shield,
   Coins,
@@ -21,14 +19,24 @@ import {
   Receipt,
   Wallet2,
   BarChart3,
-  Home
+  Home,
+  PiggyBank,
+  CreditCard,
+  TrendingUp,
+  Banknote,
+  LayoutDashboard,
+  ListChecks,
+  Settings,
+  User,
+  TrendingDown
 } from 'lucide-react';
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from '@/components/ui/dropdown-menu';
 import {ScrollArea} from '@/components/ui/scroll-area';
 import {cn} from '@/lib/utils';
 import CryptoBalanceCard from '@/components/CryptoBalanceCard';
-import {TrendingUp, Banknote, LayoutDashboard, ListChecks, Settings, User} from "lucide-react";
+import React from "react";
+
 
 const WalletCard: React.FC<{
   name: string;
@@ -252,4 +260,3 @@ export default function HomePage() {
     </div>
   );
 }
-
