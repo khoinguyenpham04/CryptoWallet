@@ -11,28 +11,22 @@ import {
   ArrowUp,
   ArrowDown,
   Plus,
-  Building2,
   PiggyBank,
   CreditCard,
-  User,
-  ShoppingBag,
-  Users,
-  Briefcase,
-  Gem,
-  Coins,
   Activity,
   Shield,
   TrendingUp,
-  Banknote,
-  LayoutDashboard,
-  Receipt,
-  Send,
+  Coins,
+  QrCode,
 } from 'lucide-react';
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from '@/components/ui/dropdown-menu';
 import {ScrollArea} from '@/components/ui/scroll-area';
 import {cn} from '@/lib/utils';
 import CryptoBalanceCard from '@/components/CryptoBalanceCard';
+
+// Import recharts components
+import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer} from 'recharts';
 
 const WalletCard: React.FC<{
   name: string;
@@ -98,6 +92,38 @@ const CryptoItem: React.FC<{
         </div>
       </div>
     </div>
+  );
+};
+
+// Mock data for the chart
+const data = [
+  {name: 'Jan', value: 2400},
+  {name: 'Feb', value: 1398},
+  {name: 'Mar', value: 9800},
+  {name: 'Apr', value: 3908},
+  {name: 'May', value: 4800},
+  {name: 'Jun', value: 3800},
+  {name: 'Jul', value: 4300},
+];
+
+const PerformanceChart: React.FC = () => {
+  return (
+    <Card className="w-full rounded-xl shadow-md overflow-hidden">
+      <CardHeader className="flex items-center justify-between p-4 pb-1">
+        <CardTitle className="text-lg font-semibold tracking-tight">Performance</CardTitle>
+      </CardHeader>
+      <CardContent className="p-4">
+        <ResponsiveContainer width="100%" height={200}>
+          <LineChart data={data}>
+            <CartesianGrid strokeDasharray="3 3"/>
+            <XAxis dataKey="name"/>
+            <YAxis/>
+            <Tooltip/>
+            <Line type="monotone" dataKey="value" stroke="#8884d8"/>
+          </LineChart>
+        </ResponsiveContainer>
+      </CardContent>
+    </Card>
   );
 };
 
@@ -249,6 +275,11 @@ export default function HomePage() {
               <CryptoBalanceCard key={balance.symbol} balance={balance}/>
             ))}
           </div>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-lg font-semibold tracking-tighter mb-5">Performance</h2>
+          <PerformanceChart />
         </section>
       </main>
     </div>
