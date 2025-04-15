@@ -3,7 +3,7 @@
 import {getCryptoRiskAssessment} from '@/services/crypto-risk-assessment';
 import {CryptoBalance} from '@/services/crypto';
 import {useEffect, useState} from 'react';
-import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
+import {Card, CardContent, CardHeader} from '@/components/ui/card';
 import {Button} from '@/components/ui/button';
 import {
   AlertTriangle,
@@ -11,13 +11,6 @@ import {
 } from 'lucide-react';
 import {Badge} from "@/components/ui/badge";
 import {Coins} from "lucide-react";
-import {
-  CircleDollarSign,
-  TrendingUp,
-  AlertCircle,
-  SlidersHorizontal,
-  Wallet,
-} from 'lucide-react';
 
 interface CryptoBalanceCardProps {
   balance: CryptoBalance;
@@ -35,12 +28,22 @@ const CryptoBalanceCard: React.FC<CryptoBalanceCardProps> = ({balance}) => {
     fetchRiskAssessment();
   }, [balance.symbol]);
 
+  const getRiskColor = (riskScore: number) => {
+    if (riskScore < 30) {
+      return "bg-green-500 text-white";
+    } else if (riskScore < 60) {
+      return "bg-yellow-500 text-gray-900";
+    } else {
+      return "bg-red-500 text-white";
+    }
+  };
+
   return (
     <Card className="w-full rounded-xl shadow-md overflow-hidden">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 pb-1">
+      <CardHeader className="flex items-center justify-between p-4 pb-1">
         <div className="flex items-center space-x-2">
           <Coins className="h-6 w-6 text-yellow-500"/>
-          <CardTitle className="text-3xl font-semibold tracking-tight">{balance.symbol}</CardTitle>
+          <div className="text-3xl font-semibold tracking-tight">{balance.symbol}</div>
         </div>
         <div className="flex items-center space-x-3">
           <div className="text-xl font-bold">{balance.amount}</div>
@@ -59,10 +62,16 @@ const CryptoBalanceCard: React.FC<CryptoBalanceCardProps> = ({balance}) => {
             <div className="rounded-md border p-3 shadow-sm">
               <div className="flex items-center space-x-2">
                 <p className="text-sm font-medium">Risk Score:</p>
-                <Badge variant="secondary">{riskAssessment.riskScore}</Badge>
+                <Badge className={getRiskColor(riskAssessment.riskScore)}>{riskAssessment.riskScore}</Badge>
               </div>
               <p className="mt-2 text-sm text-muted-foreground">
-                <span className="font-semibold">Risk Factors:</span> {riskAssessment.riskFactors}
+                <span className="font-semibold">Risk Factors:</span>
+                {riskAssessment.riskFactors.split('. ').map((factor, index) => (
+                  <React.Fragment key={index}>
+                    {factor}
+                    <br />
+                  </React.Fragment>
+                ))}
               </p>
             </div>
           </div>
