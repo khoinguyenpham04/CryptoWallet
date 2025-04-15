@@ -3,7 +3,7 @@
 import {useEffect, useState} from 'react';
 import {getCryptoTransactions} from '@/services/crypto';
 import {CryptoTransaction} from '@/services/crypto';
-import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
+import {Card, CardContent, CardHeader} from '@/components/ui/card';
 import {ScrollArea} from '@/components/ui/scroll-area';
 import {Send, Receipt} from 'lucide-react';
 import {ArrowDown, ArrowUp} from "lucide-react";
@@ -28,19 +28,20 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({symbol}) => {
   return (
     <Card className="w-full rounded-xl shadow-md overflow-hidden">
       <CardHeader className="flex items-center space-x-3 p-4 pb-2">
-        <CardTitle className="text-2xl font-extrabold tracking-tight flex items-center space-x-2">
+        <CardHeader className="flex items-center space-x-3 p-4 pb-2">
           {symbol === 'BTC' ? (
             <>
               <ArrowDown className="h-5 w-5 text-yellow-500"/>
-              <span>Transaction History (BTC)</span>
             </>
           ) : (
             <>
               <ArrowUp className="h-5 w-5 text-blue-500"/>
-              <span>Transaction History (ETH)</span>
             </>
           )}
-        </CardTitle>
+          <div className="text-2xl font-extrabold tracking-tight">
+            Transaction History ({symbol})
+          </div>
+        </CardHeader>
       </CardHeader>
       <CardContent className="px-4 p-4">
         <ScrollArea className="rounded-md border">
@@ -50,13 +51,19 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({symbol}) => {
                 <div className="flex items-center space-x-2">
                   <div className="rounded-full p-2">
                     {transaction.type === 'send' ? (
-                      <Send className="h-6 w-6 text-red-500"/>
+                      <div className="relative">
+                        <div className="absolute inset-0 bg-red-100 rounded-full animate-pulse"></div>
+                        <Send className="h-6 w-6 text-red-500 relative"/>
+                      </div>
                     ) : (
-                      <Receipt className="h-6 w-6 text-green-500"/>
+                      <div className="relative">
+                        <div className="absolute inset-0 bg-green-100 rounded-full animate-pulse"></div>
+                        <Receipt className="h-6 w-6 text-green-500 relative"/>
+                      </div>
                     )}
                   </div>
                   <div>
-                    <div className="font-medium">
+                    <div className="font-normal">
                       {transaction.type === 'send' ? 'Sent' : 'Received'} {transaction.amount} {symbol}
                     </div>
                     <div className="text-sm text-muted-foreground">{transaction.date}</div>
