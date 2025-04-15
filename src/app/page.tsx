@@ -14,7 +14,6 @@ import {
   CreditCard,
   Activity,
   Shield,
-  TrendingUp,
   Coins,
   QrCode,
 } from 'lucide-react';
@@ -23,7 +22,19 @@ import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger
 import {ScrollArea} from '@/components/ui/scroll-area';
 import {cn} from '@/lib/utils';
 import CryptoBalanceCard from '@/components/CryptoBalanceCard';
-import {Banknote, Home, LayoutDashboard, ListChecks, Settings, User, Wallet2} from "lucide-react";
+import {
+  Banknote,
+  Home,
+  LayoutDashboard,
+  ListChecks,
+  Settings,
+  User,
+  Wallet2,
+  MoreVertical,
+  Send,
+  Receipt,
+  TrendingDown
+} from "lucide-react";
 
 const WalletCard: React.FC<{
   name: string;
@@ -34,15 +45,15 @@ const WalletCard: React.FC<{
 }> = ({name, balance, ethValue, color, icon: Icon}) => {
   return (
     <Card className="w-full rounded-xl shadow-md overflow-hidden">
-      <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 p-4" style={{backgroundColor: color}}>
-        <CardTitle className="text-sm font-medium text-white">{name}</CardTitle>
+      <CardHeader className="flex items-center justify-between pb-2 space-y-0 p-4" style={{backgroundColor: color}}>
+        <div className="flex items-center space-x-2">
+          <Icon className="h-6 w-6 text-white"/>
+          <CardTitle className="text-lg font-extrabold tracking-tight text-white">{name}</CardTitle>
+        </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-4 w-4 p-0 text-white hover:bg-transparent">
-              <span className="sr-only">Open dropdown menu</span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
-                <path fillRule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12A.75.75 0 0 1 3.75 11.25h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12ZM3 17.25A.75.75 0 0 1 3.75 16.5h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 17.25Z" clipRule="evenodd" />
-              </svg>
+              <MoreVertical className="w-4 h-4"/>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -193,12 +204,10 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen bg-background px-8 md:px-16">
       <header className="py-10 flex items-center justify-between">
-        <div className="font-extrabold text-6xl tracking-tighter">Wallets</div>
+        <div className="font-extrabold text-4xl tracking-tighter">Wallets</div>
         <div className="flex items-center space-x-4">
           <Button variant="ghost" className="h-8 w-8 p-0 rounded-full">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-              <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 1.5c-4.036 0-7.5 1.969-7.5 4.5V21h15v-1.5c0-2.531-3.464-4.5-7.5-4.5Z" />
-            </svg>
+            <User className="w-5 h-5"/>
           </Button>
           <Avatar className="h-8 w-8">
             <AvatarImage src="https://picsum.photos/id/225/64/64" alt="User Avatar"/>
@@ -225,9 +234,7 @@ export default function HomePage() {
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-lg font-semibold tracking-tighter">Watching</h2>
             <Button variant="ghost" className="h-8 w-8 p-0 rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-                <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 1.5c-4.036 0-7.5 1.969-7.5 4.5V21h15v-1.5c0-2.531-3.464-4.5-7.5-4.5Z" />
-              </svg>
+              <User className="w-5 h-5"/>
             </Button>
           </div>
           <ScrollArea className="rounded-md border">
