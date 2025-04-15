@@ -192,7 +192,7 @@ export default function Home() {
           </Avatar>
         </div>
       </header>
-      <main className="flex-1 overflow-y-auto px-4">
+      <main className="flex-1 overflow-y-auto px-6">
         <section className="mb-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold tracking-tighter">Your Wallets</h2>
